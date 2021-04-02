@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  webapi.mongodb:
+    image: ${DOCKER_REGISTRY-}webapimongodb
+    build:
+      context: .
+      dockerfile: webapi.mongodb/Dockerfile
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: apimongo
+      MONGO_INITDB_ROOT_PASSWORD: example

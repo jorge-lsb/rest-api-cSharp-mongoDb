@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using webapi.mongodb.Data;
 using webapi.mongodb.Entitys;
 
@@ -16,9 +17,9 @@ namespace webapi.mongodb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
         {
-            return Ok(_clienteService.Get());
+            return Ok(await _clienteService.Get(pageIndex, pageSize));
         }
 
         [HttpGet("{id}")]
@@ -35,12 +36,9 @@ namespace webapi.mongodb.Controllers
         [HttpPost]
         public IActionResult Create(Cliente cliente)
         {
-            _clienteService.Create(cliente);
+            var result = _clienteService.Create(cliente);
 
-            return CreatedAtRoute("GetCliente", new
-            {
-                id = cliente.Id.ToString()
-            }, cliente);
+            return Ok(result);
         }
 
         [HttpPut("{id}")]

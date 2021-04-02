@@ -26,6 +26,8 @@ namespace webapi.mongodb
             services.Configure<ClientesStoreDatabaseSettings>(opt => Configuration.GetSection("Mongo").Bind(opt));
 
             services.AddSingleton<ClienteService>();
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

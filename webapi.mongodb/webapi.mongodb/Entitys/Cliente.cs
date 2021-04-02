@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace webapi.mongodb.Entitys
@@ -12,9 +13,11 @@ namespace webapi.mongodb.Entitys
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public int Idade { get; set; }
+        public DateTime Criado { get; set; }
+        public DateTime Atualizado { get; set; }
         public ICollection<Telefone> Telefone { get; set; }
 
-        [BsonElement("Endereco")]
-        public Endereco EnderecoCliente { get; set; }
-    }
+		[BsonElement("Endereco")]
+		public Endereco EnderecoCliente { get; set; }
+	}
 }

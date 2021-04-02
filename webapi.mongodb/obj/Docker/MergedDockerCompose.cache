@@ -1,0 +1,26 @@
+services:
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: apimongo
+    image: mongo
+    ports:
+    - 27017:27017/tcp
+    restart: always
+  webapi.mongodb:
+    build:
+      context: C:\Users\jorge.barbosa\Downloads\webapi.mongodb_paged\webapi.mongodb
+      dockerfile: webapi.mongodb/Dockerfile
+    depends_on:
+    - mongo
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: webapimongodb
+    ports:
+    - 80/tcp
+    - 443/tcp
+    volumes:
+    - C:\Users\jorge.barbosa\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\jorge.barbosa\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
